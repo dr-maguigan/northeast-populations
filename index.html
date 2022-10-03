@@ -75,7 +75,8 @@ body {
 				 zoom: 6,
 				 layers: [osm]
 			});
-	$.getJSON(“cityData.json”), function(data) {
+	$.getJSON(“data/cityData.json”)
+		.done(function(data) {
 			var info = processData(data);
 	 			createPropSymbols(info.timestamps, data);
 	 			createLegend(info.min,info.max);
