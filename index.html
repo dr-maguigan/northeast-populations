@@ -75,7 +75,7 @@ body {
 				 zoom: 6,
 				 layers: [osm]
 			});
-	$.getJSON(“data/cityData.json”)    
+	$.getJSON(“cityData.json”)    
 		.done(function(data) {
 			var info = processData(data);
 	 			createPropSymbols(info.timestamps, data);
