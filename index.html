@@ -3,14 +3,12 @@
 <head>
 	<meta charset=”utf-8”>
 	<title>Norteastern US Populations 1960-2020</title>
-		<!--[if IE]>
-			<script src=”html5shiv.googlecode.com/svn/trunk/html5.js”>
-			</script>
-		<![endif]-->
 		
-		<!--stylesheets-->
 		<link rel=”stylesheet” href=”css/leaflet.css”>
 		<link rel=”stylesheet” href=”css/style.css”>
+		<script src="lib/jquery-1.11.3.js"></script>
+		<script src="js/main.js"></script>
+		
 <style>
     h1 {text-align: center;}
     h2 {text-align: center;}
@@ -61,10 +59,8 @@ body {
  <body>
 	<h2>Northeastern US Population 1960-2020</h2>
   	<div id="map"></div>
-	<script type="text/javascript" src="lib/jquery-1.11.3.js"></script>
-	<script type = "text/javascript" src=”js/main.js”></script>
-  	
-		
+	<script type="text/javascript">
+			
 	$(document).ready(function() {
 		
 		var cities;
