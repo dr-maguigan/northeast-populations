@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Norteastern US Populations 1960-2020</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.8.0/dist/leaflet.css"
+   integrity="sha512-hoalWLoI8r4UszCkZ5kL8vayOGVae1oxXe/2A4AO6J9+580uKHDO3JdHb7NzwwzK5xr/Fs0W40kiNHxM9vyTtQ=="
+   crossorigin=""/>
+  <script src="https://unpkg.com/leaflet@1.8.0/dist/leaflet.js"
+  integrity="sha512-BB3hKbKWOc9Ez/TAwyWxNXeoV9c1v6FIeYiBieIWkpLjauysF18NzgR1MBNBXf8/KABdlkX68nAhlwcDFLGPCQ=="
+   crossorigin=""></script>
+   <meta name="viewport" content="width=device-width, initial-scale=1">
+  <style>
+    h1 {text-align: center;}
+    h2 {text-align: center;}
+    p {text-align: center;}
+body {
+  background-color: #D3D3D3;
+}
+	  * {
+      font-family: Georgia;
+      color: #461D7C;
+      }
+	    #map{
+         max-width: 85%;
+         height: 650px;
+         border: 3px solid #FDD023;
+         margin-left:auto;
+         margin-right:auto;
+         }
+</style>
+</head>
+ <body>
+	<h2>Northeastern US Population 1960-2020</h2>
+  	<div id="map"></div>
+	     
+  	<script type="text/javascript">
+                       var osm = L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+    				maxZoom: 15,
+   				attribution: '© OpenStreetMap'});
+		
+		var pop_60 =
+    
+    var pop_70 =
+    
+    var pop_80 =
+    
+    var pop_90 = 
+    
+    var pop_00 = 
+    
+    var pop_10 =
+    
+    var pop_20 = 
+    
+    var pop_1960 = L.layerGroup([pop_60]);
+    
+    var pop_1970 = L.layerGroup([pop_70]);
+    
+    var pop_1980 = L.layerGroup([pop_80]);
+    
+    var pop_1990 = L.layerGroup([pop_90]);
+    
+    var pop_2000 = L.layerGroup([pop_00]);
+    
+    var pop_2010 = L.layerGroup([pop_10]);
+    
+    var pop_2020 = L.layerGroup([pop_20]);
+    
+    var map = L.map('map', {
+				 center: [43.66750416330615, -73.34588210441638],
+				 zoom: 6,
+				 layers: [osm]
+			});
+    
+			var overlayMaps = {
+				"1960 Population": pop_1960,
+				"1970 Population": pop_1970,
+				"1980 Population": pop_1980,
+        "1990 Population": pop_1990,
+        "2000 Population": pop_2000,
+        "2010 Population": pop_2010
+        "2020 Population": pop_2020
+			};
+		
+			var layerControl = L.control.layers(overlayMaps).addTo(map);
+		
+			
+
+		
+</script>
+</body>
+</html>
