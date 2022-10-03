@@ -28,66 +28,251 @@ body {
          margin-left:auto;
          margin-right:auto;
          }
+.legend, .temporal-legend {
+   		padding: 6px 10px;
+    		font: 14px/16px Arial, Helvetica, sans-serif;
+   		background: white;
+    		background: rgba(255,255,255,0.8);
+    		box-shadow: 0 0 15px rgba(0,0,0,0.2);
+    		border-radius: 5px;
+	}
+	#legendTitle {
+  	  	text-align: center;
+   	 	margin-bottom: 15px;
+   		font-variant: small-caps;
+	}
+	.symbolsContainer {
+    		float: left;
+		margin-left: 50px;
+	}
+	.legendCircle {
+     	border-radius:50%; 
+     	border: 1px solid #537898; 
+     	background: rgba(113, 133, 152, .6);
+	 	display: inline-block;
+	}
+	.legendValue {
+    		position: absolute;
+    		right: 8px;
+	}
 </style>
 </head>
  <body>
 	<h2>Northeastern US Population 1960-2020</h2>
   	<div id="map"></div>
-	     
-  	<script type="text/javascript">
-                       var osm = L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+	<script src=”js/main.js”>
+  	
+		
+	$(document).ready(function() {
+		
+		var cities
+                var osm = L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
     				maxZoom: 15,
    				attribution: '© OpenStreetMap'});
-		
-		var pop_60 =
-    
-    var pop_70 =
-    
-    var pop_80 =
-    
-    var pop_90 = 
-    
-    var pop_00 = 
-    
-    var pop_10 =
-    
-    var pop_20 = 
-    
-    var pop_1960 = L.layerGroup([pop_60]);
-    
-    var pop_1970 = L.layerGroup([pop_70]);
-    
-    var pop_1980 = L.layerGroup([pop_80]);
-    
-    var pop_1990 = L.layerGroup([pop_90]);
-    
-    var pop_2000 = L.layerGroup([pop_00]);
-    
-    var pop_2010 = L.layerGroup([pop_10]);
-    
-    var pop_2020 = L.layerGroup([pop_20]);
-    
-    var map = L.map('map', {
+		var map = L.map('map', {
 				 center: [43.66750416330615, -73.34588210441638],
 				 zoom: 6,
 				 layers: [osm]
 			});
-    
-			var overlayMaps = {
-				"1960 Population": pop_1960,
-				"1970 Population": pop_1970,
-				"1980 Population": pop_1980,
-        "1990 Population": pop_1990,
-        "2000 Population": pop_2000,
-        "2010 Population": pop_2010
-        "2020 Population": pop_2020
-			};
+	$.getJSON(“data/cityData.json”)    
+		.done(function(data) {
+			var info = processData(data);
+	 			createPropSymbols(info.timestamps, data);
+	 			createLegend(info.min,info.max);
+	 			createSliderUI(info.timestamps);
+	 	})
+	.fail(function() { alert(“There has been a problem loading the data.”)});
 		
-			var layerControl = L.control.layers(overlayMaps).addTo(map);
-		
-			
+	function processData(data) {
+		var timestamps = [];
+		var min = Infinity; 
+		var max = -Infinity;
 
+		for (var feature in data.features) {
+
+			var properties = data.features[feature].properties; 
+
+			for (var attribute in properties) { 
+
+				if ( attribute != ‘id’ &&
+				  attribute != ‘name’ &&
+				  attribute != ‘latitude’ &&
+				  attribute != ‘longitude’ ) {
+						
+					if ( $.inArray(attribute,timestamps) === -1) {
+						timestamps.push(attribute);		
+					}
+
+					if (properties[attribute] < min) {	
+						min = properties[attribute];
+					}
+						
+					if (properties[attribute] > max) { 
+						max = properties[attribute]; 
+					}
+				}
+			}
+		}
+
+		return {
+			timestamps : timestamps,
+			min : min,
+			max : max
+		}
+	};
+	 
+	function createPropSymbols(timestamps, data) {
+			
+		cities = L.geoJson(data, {
+	 		pointToLayer: function(feature, latlng) {	
+
+			return L.circleMarker(latlng, { 
+				 fillColor: “#708598”,
+				 color: ‘#537898’
+				 weight: 1, 
+				 fillOpacity: 0.6 
+				}).on({
+
+					mouseover: function(e) {
+						this.openPopup();
+						this.setStyle({color: ‘yellow’});
+					},
+					mouseout: function(e) {
+						this.closePopup();
+						this.setStyle({color: ‘#537898’});
+							
+					}
+				});
+			}
+		}).addTo(map);
+
+		updatePropSymbols(timestamps[0]);
+	};
+	 
+	function updatePropSymbols(timestamp) {
 		
+		cities.eachLayer(function(layer) {
+	
+			var props = layer.feature.properties;
+			var radius = calcPropRadius(props[timestamp]);
+			var popupContent = “<b>” + String(props[timestamp]) + 
+					“ units</b><br>” +
+					“<i>” + props.name +
+					“</i> in </i>” + 
+					timestamp + “</i>”;
+
+			layer.setRadius(radius);
+			layer.bindPopup(popupContent, { offset: new L.Point(0,-radius) });
+		});
+	}
+	function calcPropRadius(attributeValue) {
+
+		var scaleFactor = 16;
+		var area = attributeValue * scaleFactor;
+		return Math.sqrt(area/Math.PI)*2;			
+	};
+	
+	function createLegend(min, max) {
+		 
+		if (min < 10) {	
+			min = 10; 
+		}
+
+		function roundNumber(inNumber) {
+
+				return (Math.round(inNumber/10) * 10);  
+		}
+
+		var legend = L.control( { position: ‘bottomright’ } );
+
+		legend.onAdd = function(map) {
+
+		var legendContainer = L.DomUtil.create(“div”, “legend”);  
+		var symbolsContainer = L.DomUtil.create(“div”, “symbolsContainer”);
+		var classes = [roundNumber(min), roundNumber((max-min)/2), roundNumber(max)]; 
+		var legendCircle;  
+		var lastRadius = 0;
+		var currentRadius;
+		var margin;
+
+		L.DomEvent.addListener(legendContainer, ‘mousedown’, function(e) { 
+			L.DomEvent.stopPropagation(e); 
+		});  
+
+		$(legendContainer).append(“<h2 id=’legendTitle’># of somethings</h2>”);
+		
+		for (var i = 0; i <= classes.length-1; i++) {  
+
+			legendCircle = L.DomUtil.create(“div”, “legendCircle”);  
+			
+			currentRadius = calcPropRadius(classes[i]);
+			
+			margin = -currentRadius - lastRadius - 2;
+
+			$(legendCircle).attr(“style”, “width: “ + currentRadius*2 + 
+				“px; height: “ + currentRadius*2 + 
+				“px; margin-left: “ + margin + “px” );				
+			$(legendCircle).append(“<span class=’legendValue’>”+classes[i]+”</span>”);
+
+			$(symbolsContainer).append(legendCircle);
+
+			lastRadius = currentRadius;
+
+		}
+
+		$(legendContainer).append(symbolsContainer); 
+
+		return legendContainer; 
+
+		};
+
+		legend.addTo(map);  
+
+	} // end createLegend();
+
+	function createSliderUI(timestamps) {
+	
+		var sliderControl = L.control({ position: ‘bottomleft’} );
+
+		sliderControl.onAdd = function(map) {
+
+			var slider = L.DomUtil.create(“input”, “range-slider”);
+	
+			L.DomEvent.addListener(slider, ‘mousedown’, function(e) { 
+				L.DomEvent.stopPropagation(e); 
+			});
+
+			$(slider)
+				.attr({‘type’:’range’, 
+					‘max’: timestamps[timestamps.length-1], 
+					‘min’: timestamps[0], 
+					‘step’: 1,
+					‘value’: String(timestamps[0])})
+		  		.on(‘input change’, function() {
+		  		updatePropSymbols($(this).val().toString());
+					$(“.temporal-legend”).text(this.value);
+		  	});
+			return slider;
+		}
+
+		sliderControl.addTo(map)
+		createTemporalLegend(timestamps[0]);
+	};
+
+	function createTemporalLegend(startTimestamp) {
+
+		var temporalLegend = L.control({ position: ‘bottomleft’ }); 
+
+		temporalLegend.onAdd = function(map) { 
+			var output = L.DomUtil.create(“output”, “temporal-legend”);
+ 			$(output).text(startTimestamp)
+			return output; 
+		}
+
+		temporalLegend.addTo(map); 
+	}
+
+	 
 </script>
 </body>
 </html>
