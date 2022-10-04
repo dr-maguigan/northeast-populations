@@ -93,8 +93,19 @@ body {
 {"type":"Feature","geometry":{"type":"Point","coordinates":[-77.60879999999997,43.156600000000026]},"properties":{"id":14,"city":"Rochester","latitude":43.1566,"longitude":-77.6088,"pop60":"318611","pop70":"296233","pop80":"241741","pop90":"231636","pop00":"219474","pop10":"210565","pop20":"211328"}},
 {"type":"Feature","geometry":{"type":"Point","coordinates":[-78.87839999999994,42.88640000000004]},"properties":{"id":15,"city":"Buffalo","latitude":42.8864,"longitude":-78.8784,"pop60":"532759","pop70":"462768","pop80":"357870","pop90":"328123","pop00":"292648","pop10":"261310","pop20":"278349"}}
 ]};
+	
+	var markerstyle = {
+		"radius": 8,
+		"fillcolor": "#ff7800",
+		"weight": 1,
+		"fillopacity": 0.7
+	};
 		
-	L.geoJSON(cities).addTo(map);
+	L.geoJSON(cities, {
+		pointToLayer: function, (feature, latlng) {
+			return L.circleMarker(latlng, markerstyle);
+		}
+		}).addTo(map);
 
 	 </script>				
 </body>
