@@ -102,7 +102,7 @@ body {
 	};
 		
 	L.geoJSON(cities, {
-		pointToLayer: function, (feature, latlng) {
+		pointToLayer: function (feature, latlng) {
 			return L.circleMarker(latlng, markerstyle);
 		}
 		}).addTo(map);
