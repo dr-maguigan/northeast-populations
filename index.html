@@ -68,7 +68,14 @@ body {
 			
 	$(document).ready(function() {
 		
-		var cities = {"type":"FeatureCollection", "features": [
+		var osm = L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+    				maxZoom: 15,
+   				attribution: '© OpenStreetMap'});
+		var map = L.map('map', {
+				 center: [43.66750416330615, -73.34588210441638],
+				 zoom: 6
+			});
+		var cities = ({"type":"FeatureCollection", "features": [
 {"type":"Feature","geometry":{"type":"Point","coordinates":[-68.77119999999996,44.801600000000064]},"properties":{"id":1,"city":"Bangor","latitude":44.8016,"longitude":-68.7712,"pop60":"38912","pop70":"33168","pop80":"31643","pop90":"33181","pop00":"31473","pop10":"33039","pop20":"31753"}},
 {"type":"Feature","geometry":{"type":"Point","coordinates":[-70.25679999999994,43.65910000000008]},"properties":{"id":2,"city":"Portland","latitude":43.6591,"longitude":-70.2568,"pop60":"72566","pop70":"65116","pop80":"61572","pop90":"64358","pop00":"64249","pop10":"66194","pop20":"68408"}},
 {"type":"Feature","geometry":{"type":"Point","coordinates":[-69.77949999999998,44.31060000000008]},"properties":{"id":3,"city":"Augusta","latitude":44.3106,"longitude":-69.7795,"pop60":"21680","pop70":"21945","pop80":"21819","pop90":"21325","pop00":"18560","pop10":"19136","pop20":"18899"}},
@@ -84,15 +91,7 @@ body {
 {"type":"Feature","geometry":{"type":"Point","coordinates":[-76.14739999999995,43.048100000000034]},"properties":{"id":13,"city":"Syracuse","latitude":43.0481,"longitude":-76.1474,"pop60":"216038","pop70":"197208","pop80":"170105","pop90":"163855","pop00":"146070","pop10":"145170","pop20":"148620"}},
 {"type":"Feature","geometry":{"type":"Point","coordinates":[-77.60879999999997,43.156600000000026]},"properties":{"id":14,"city":"Rochester","latitude":43.1566,"longitude":-77.6088,"pop60":"318611","pop70":"296233","pop80":"241741","pop90":"231636","pop00":"219474","pop10":"210565","pop20":"211328"}},
 {"type":"Feature","geometry":{"type":"Point","coordinates":[-78.87839999999994,42.88640000000004]},"properties":{"id":15,"city":"Buffalo","latitude":42.8864,"longitude":-78.8784,"pop60":"532759","pop70":"462768","pop80":"357870","pop90":"328123","pop00":"292648","pop10":"261310","pop20":"278349"}}
-]}
-		
-		var osm = L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
-    				maxZoom: 15,
-   				attribution: '© OpenStreetMap'});
-		var map = L.map('map', {
-				 center: [43.66750416330615, -73.34588210441638],
-				 zoom: 6
-			});
+]}).addTo(map);
 
 </body>
 </html>
