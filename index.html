@@ -77,7 +77,7 @@ body {
 				 zoom: 6,
 				 layers: [osm]
 			});
-	$.getJSON(“https://github.com/dr-maguigan/northeast-populations/blob/main/cityData.json”, data)
+	$.getJSON(“cityData.json”, data)
 		.done(function(data) {
 			var info = processData(data);
 	 			createPropSymbols(info.timestamps, data);
