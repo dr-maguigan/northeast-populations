@@ -13,7 +13,9 @@
    		crossorigin=""></script>
    		<meta name="viewport" content="width=device-width, initial-scale=1">
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-		
+		<script src="http://api.jquery.com/jquery.getjson"></script>
+		<script src="https://developer.mozilla.org/en/docs/Web/API/Fetch_API"></script>
+			     
 <style>
     h1 {text-align: center;}
     h2 {text-align: center;}
@@ -68,24 +70,23 @@ body {
 			
 	$(document).ready(function() {
 		
-		var cities;
-                var osm = L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+		var data = "https://github.com/dr-maguigan/northeast-populations/blob/main/cityData.json"
+		var handleGeoJSON = function (data) {
+  			console.log(data)
+		}
+
+		$.getJSON(necities, handleGeoJSON)
+
+		fetch(guinea).then(function(response) { return response.json() }).then(handleGeoJSON)
+		
+		var osm = L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
     				maxZoom: 15,
    				attribution: '© OpenStreetMap'});
 		var map = L.map('map', {
 				 center: [43.66750416330615, -73.34588210441638],
 				 zoom: 6,
-				 layers: [osm]
+				 layers: [osm, data]
 			});
-	$.getJSON(“cityData.json”, data)
-		.done(function(data) {
-			var info = processData(data);
-	 			createPropSymbols(info.timestamps, data);
-	 			createLegend(info.min,info.max);
-	 			createSliderUI(info.timestamps);
-	 	})
-	.fail(function() { alert(“There has been a problem loading the data.”)});
-		
 	function processData(data) {
 		var timestamps = [];
 		var min = Infinity; 
