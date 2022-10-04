@@ -75,9 +75,9 @@ body {
   			console.log(data)
 		}
 
-		$.getJSON(necities, handleGeoJSON)
+		$.getJSON(data, handleGeoJSON)
 
-		fetch(guinea).then(function(response) { return response.json() }).then(handleGeoJSON)
+		fetch(data).then(function(response) { return response.json() }).then(handleGeoJSON)
 		
 		var osm = L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
     				maxZoom: 15,
