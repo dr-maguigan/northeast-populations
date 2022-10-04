@@ -46,7 +46,7 @@ body {
 		
 		L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
     				maxZoom: 15,
-   				attribution: '© OpenStreetMap'});
+   				attribution: '© OpenStreetMap'}).addTo(map);
 		
 		var cities = {"type":"FeatureCollection", "features": [
 {"type":"Feature","geometry":{"type":"Point","coordinates":[-68.77119999999996,44.801600000000064]},"properties":{"id":1,"city":"Bangor","latitude":44.8016,"longitude":-68.7712,"pop60":"38912","pop70":"33168","pop80":"31643","pop90":"33181","pop00":"31473","pop10":"33039","pop20":"31753"}},
