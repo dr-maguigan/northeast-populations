@@ -82,7 +82,7 @@ body {
 
 	function getData(map){
 
-		$.ajax("data/cityData.json", {
+		$.ajax("data/cityData.geojson", {
         		dataType: "json",
         		success: function(response){
             	L.geoJson(response).addTo(map);
