@@ -85,22 +85,22 @@ body {
 		$.ajax("cityData.geojson", {
         		dataType: "json",
         		success: function(response){
-            	 var geojsonMarkerOptions = {
-                radius: 8,
-                fillColor: "#ff7800",
-                color: "#000",
-                weight: 1,
-                opacity: 1,
-                fillOpacity: 0.8
-            };
+            	 		var geojsonMarkerOptions = {
+                			radius: 8,
+                			fillColor: "#ff7800",
+                			color: "#000",
+                			weight: 1,
+                			opacity: 1,
+                			fillOpacity: 0.8
+            			};
 
-            L.geoJson(response, {
-                pointToLayer: function (feature, latlng){
-                    return L.circleMarker(latlng, geojsonMarkerOptions);
-                }
-            }).addTo(map);
-        }
-    });
+            			L.geoJson(response, {
+                			pointToLayer: function (feature, latlng){
+                    			return L.circleMarker(latlng, geojsonMarkerOptions);
+                		}
+            			}).addTo(map);
+        		}
+    		});
 
 	$(document).ready(createMap);
 	 </script>	
