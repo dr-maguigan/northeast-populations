@@ -65,7 +65,7 @@ body {
  <body>
 	<h2>Northeastern US Population 1960-2020</h2>
   	<div id="map"></div>
-	<script>
+	<script type="text/javascript">
 			
 	function createMap(){
 		var map = L.map('map', {
@@ -98,7 +98,7 @@ body {
                 			pointToLayer: function (feature, latlng){
                     			return L.circleMarker(latlng, geojsonMarkerOptions);
                 		}
-            			}).addTo(map);
+            			});
         		}
     		});
 
