@@ -168,7 +168,8 @@ body {
             			popupContent += "<p><b>Population in " + year + ":</b> " + props[attribute] + " million</p>";
 
             			layer.bindPopup(popupContent, {
-                			offset: new L.Point(0,-radius)};
+                			offset: new L.Point(0,-radius)}
+					);
             		};
         	});
 	};
