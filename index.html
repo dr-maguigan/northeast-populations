@@ -72,6 +72,18 @@ body {
     		return radius;
 	};
 	
+	function processData(data){
+		var attributes = [];
+		var properties = data.features[0].properties;
+		for (var attribute in properties){
+        		if (attribute.indexOf("pop") > -1){
+            			attributes.push(attribute);
+        		};
+    		};
+
+    		return attributes;
+	};
+		
 	function pointToLayer(feature, latlng){
 		var attribute = attributes[0];
     		var options = {
@@ -110,18 +122,6 @@ body {
     		}).addTo(map);
 	};
 	
-	function processData(data){
-		var attributes = [];
-		var properties = data.features[0].properties;
-		for (var attribute in properties){
-        		if (attribute.indexOf("pop") > -1){
-            			attributes.push(attribute);
-        		};
-    		};
-
-    		return attributes;
-	};		
-		
 	function createSequenceControls(map){
     		$('#panel').append('<input class="range-slider" type="range">');
 		$('.range-slider').attr({
