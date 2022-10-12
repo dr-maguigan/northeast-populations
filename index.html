@@ -73,7 +73,8 @@ body {
 	};
 		
 	function pointToLayer(feature, latlng){
-		var attribute = "pop_2020";
+		var attribute = attributes[0];
+    		console.log(attribute);
     		var options = {
         		fillColor: "#ff7800",
         		color: "#000",
@@ -102,10 +103,26 @@ body {
     		});
 	};
 
-	function createPropSymbols(data, map){
+	function createPropSymbols(data, map, attributes){
 		L.geoJson(data, {
-        		pointToLayer: pointToLayer
+        		pointToLayer: function(feature, latlng){
+            			return pointToLayer(feature, latlng, attributes);
+       			 }
     		}).addTo(map);
+	};
+	
+	function processData(data){
+		var attributes = [];
+		var properties = data.features[0].properties;
+		for (var attribute in properties){
+        		if (attribute.indexOf("pop") > -1){
+            			attributes.push(attribute);
+        		};
+    		};
+
+    		console.log(attributes);
+
+    		return attributes;
 	};
 		
 	function getData(map){
@@ -122,7 +139,7 @@ body {
 	sliderControl = L.control.sliderControl({
                     position: "topright",
                     layer: pointToLayer, 
-                    timeAttribute: attValue,
+                    timeAttribute: attributes,
                     showAllOnStart: true,
                     range: true
 	 }).addTo(map);
