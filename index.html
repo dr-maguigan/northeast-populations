@@ -107,8 +107,18 @@ body {
 		var popupContent = "<p><b>City:</b> " + feature.properties.city + "</p>";
 		var year = attribute.split("_")[1];
     		popupContent += "<p><b>Population in " + year + ":</b> " + feature.properties[attribute] + " million</p>";
-		layer.bindPopup(popupContent);
+		layer.bindPopup(popupContent, {
+			offset: new L.Point(0,-options.radius)
+    		});
 		return layer;
+		layer.on({
+        		mouseover: function(){
+            			this.openPopup();
+        		},
+        		mouseout: function(){
+            			this.closePopup();
+        		}
+    		});
 	};
 
 	function createPropSymbols(data, map){
