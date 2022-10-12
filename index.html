@@ -72,20 +72,6 @@ body {
     		return radius;
 	};
 	
-	function processData(data){
-		var attributes = [];
-		var properties = data.features[0].properties;
-		for (var attribute in properties){
-        		if (attribute.indexOf("pop") > -1){
-            			attributes.push(attribute);
-        		};
-    		};
-
-    		console.log(attributes);
-
-    		return attributes;
-	};	
-		
 	function pointToLayer(feature, latlng){
 		var attribute = attributes[0];
     		console.log(attribute);
@@ -125,11 +111,26 @@ body {
     		}).addTo(map);
 	};
 	
+	function processData(data){
+		var attributes = [];
+		var properties = data.features[0].properties;
+		for (var attribute in properties){
+        		if (attribute.indexOf("pop") > -1){
+            			attributes.push(attribute);
+        		};
+    		};
+
+    		console.log(attributes);
+
+    		return attributes;
+	};		
+		
 	function getData(map){
     		$.ajax("cityData.geojson", {
         	dataType: "json",
         	success: function(response){
-            	createPropSymbols(response, map);
+			var attributes = processData(response);
+            		createPropSymbols(response, map, attributes);
        		}
     		});
 	};
