@@ -119,26 +119,20 @@ body {
     		}).addTo(map);
 	};
 		
-	function createSequenceControls(map){
-		$('#panel').append('<input class="range-slider" type="range">');
-		$('.range-slider').attr({
-        max: 6,
-        min: 0,
-        value: 0,
-        step: 1
-    });
-		$('#panel').append('<button class="skip" id="reverse">Reverse</button>');
-    		$('#panel').append('<button class="skip" id="forward">Skip</button>');
-		$('#reverse').html('<img src="img/reverse.png">');
-    		$('#forward').html('<img src="img/forward.png">');
-};
+	sliderControl = L.control.sliderControl({
+                    position: "topright",
+                    layer: layer, 
+                    timeAttribute: attValue,
+                    showAllOnStart: true,
+                    range: true
+	map.addControl(sliderControl);
+	sliderControl.startSlider();
 
 	function getData(map){
     		$.ajax("cityData.geojson", {
         	dataType: "json",
         	success: function(response){
             	createPropSymbols(response, map);
-		createSequenceControls(map);
        		}
     		});
 	};
