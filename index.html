@@ -88,25 +88,29 @@ body {
     		return radius;
 	};
 		
-	function createPropSymbols(data, map){
+	function pointToLayer(feature, latlng){
 		var attribute = "pop20";
-    		var geojsonMarkerOptions = {
+    		var options = {
         		fillColor: "#ff7800",
         		color: "#000",
         		weight: 1,
         		opacity: 1,
         		fillOpacity: 0.8
     		};
-
-    		L.geoJson(data, {
-        		pointToLayer: function (feature, latlng) {
-				var attValue = Number(feature.properties[attribute]);
-				geojsonMarkerOptions.radius = calcPropRadius(attValue);
-				return L.circleMarker(latlng, geojsonMarkerOptions);
-        		}
-    		}).addTo(map);
+		
+		var attValue = Number(feature.properties[attribute]);
+		options.radius = calcPropRadius(attValue);
+		var layer = L.circleMarker(latlng, options);
+		var popupContent = "<p><b>City:</b> " + feature.properties.City + "</p><p><b>" + attribute + ":</b> " + feature.properties[attribute] + "</p>";
+		layer.bindPopup(popupContent);
+		return layer;
 	};
 
+	function createPropSymbols(data, map){
+		L.geoJson(data, {
+        		pointToLayer: pointToLayer
+    		}).addTo(map);
+	};
 	function getData(map){
     		$.ajax("cityData.geojson", {
         	dataType: "json",
