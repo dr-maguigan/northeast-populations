@@ -104,7 +104,7 @@ body {
 		var attValue = Number(feature.properties[attribute]);
 		options.radius = calcPropRadius(attValue);
 		var layer = L.circleMarker(latlng, options);
-		var popupContent = "<p><b>City:</b> " + feature.properties.City + "</p><p><b>" + attribute + ":</b> " + feature.properties[attribute] + "</p>";
+		var popupContent = "<p><b>city:</b> " + feature.properties.City + "</p><p><b>" + attribute + ":</b> " + feature.properties[attribute] + "</p>";
 		layer.bindPopup(popupContent);
 		return layer;
 	};
