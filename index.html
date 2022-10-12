@@ -114,8 +114,7 @@ body {
                     timeAttribute: attValue,
                     showAllOnStart: true,
                     range: true
-	map.addControl(sliderControl);
-	sliderControl.startSlider();
+	 }).addTo(map);
 
 	function getData(map){
     		$.ajax("cityData.geojson", {
