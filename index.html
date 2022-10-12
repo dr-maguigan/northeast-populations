@@ -108,14 +108,6 @@ body {
     		}).addTo(map);
 	};
 		
-	sliderControl = L.control.sliderControl({
-                    position: "topright",
-                    layer: layer, 
-                    timeAttribute: attValue,
-                    showAllOnStart: true,
-                    range: true
-	 }).addTo(map);
-
 	function getData(map){
     		$.ajax("cityData.geojson", {
         	dataType: "json",
@@ -126,6 +118,14 @@ body {
 	};
 
 	$(document).ready(createMap);
+	
+	sliderControl = L.control.sliderControl({
+                    position: "topright",
+                    layer: layer, 
+                    timeAttribute: attValue,
+                    showAllOnStart: true,
+                    range: true
+	 }).addTo(map);
 	 </script>	
 </body>
 </html>
