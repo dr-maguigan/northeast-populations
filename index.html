@@ -141,7 +141,7 @@ body {
         		var index = $('.range-slider').val();
 		        if ($(this).attr('id') == 'forward'){
             			index++;
-            		index = index > 6 ? 0 : index;
+            			index = index > 6 ? 0 : index;
         			} else if ($(this).attr('id') == 'reverse'){
             				index--;
             				index = index < 0 ? 6 : index;
@@ -153,13 +153,11 @@ body {
 		$('.range-slider').on('input', function(){
         		var index = $(this).val();
 			updatePropSymbols(map, attributes[index]);
-    });
+    		});
 	};	
 	
 	function updatePropSymbols(map, attribute){
     		map.eachLayer(function(layer){
-        		if (layer.feature && layer.feature.properties[attribute]){
-        		};
 			if (layer.feature && layer.feature.properties[attribute]){
             			var props = layer.feature.properties;
 
@@ -171,8 +169,8 @@ body {
             			var year = attribute.split("_")[1];
             			popupContent += "<p><b>Population in " + year + ":</b> " + props[attribute] + " million</p>";
 
-            	layer.bindPopup(popupContent, {
-                	offset: new L.Point(0,-radius)
+            			layer.bindPopup(popupContent, {
+                			offset: new L.Point(0,-radius)
             		});
         	};
     				
@@ -183,7 +181,7 @@ body {
 			var attributes = processData(response);
             		createPropSymbols(response, map, attributes);
 			createSequenceControls(map);
-       		}
+       			}
     		});
 	};
 
