@@ -84,7 +84,7 @@ body {
 	};
 
 	function calcPropRadius(attValue) {
-    		var scaleFactor = 5;
+    		var scaleFactor = 0.5;
     		var area = attValue * scaleFactor;
     		var radius = Math.sqrt(area/Math.PI);
 
@@ -92,7 +92,7 @@ body {
 	};
 		
 	function pointToLayer(feature, latlng){
-		var attribute = "pop20";
+		var attribute = "pop_2020";
     		var options = {
         		fillColor: "#ff7800",
         		color: "#000",
