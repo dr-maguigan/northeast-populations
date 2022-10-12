@@ -119,8 +119,6 @@ body {
         		};
     		};
 
-    		console.log(attributes);
-
     		return attributes;
 	};		
 		
@@ -141,11 +139,12 @@ body {
 		        if ($(this).attr('id') == 'forward'){
             			index++;
             			index = index > 6 ? 0 : index;
-        			} else if ($(this).attr('id') == 'reverse'){
+        			} 
+			else if ($(this).attr('id') == 'reverse'){
             				index--;
             				index = index < 0 ? 6 : index;
 			updatePropSymbols(map, attributes[index]);
-        		};
+        		});
 
 	        $('.range-slider').val(index);
     		});
