@@ -143,6 +143,7 @@ body {
 			else if ($(this).attr('id') == 'reverse'){
             				index--;
             				index = index < 0 ? 6 : index;
+			}
 			updatePropSymbols(map, attributes[index]);
         		});
 
@@ -171,6 +172,7 @@ body {
                 			offset: new L.Point(0,-radius)
             		});
         	};
+	};
     				
 	function getData(map){
     		$.ajax("cityData.geojson", {
