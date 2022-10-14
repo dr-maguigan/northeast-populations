@@ -156,7 +156,7 @@ body {
     		$.ajax("cityData.geojson", {
         	dataType: "json",
         	success: function(response){
-            		createPropSymbols(response, map, attributes);
+            		createPropSymbols(response, map);
 			createSequenceControls(map);
        			}
     		});
