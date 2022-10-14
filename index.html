@@ -44,10 +44,6 @@ body {
     line-height: 42px;
 }
 
-.range-slider {
-    width: 50%;
-}
-	
 </style>
 </head>
  <body>
@@ -76,8 +72,8 @@ body {
     		return radius;
 	};
 	
-	function pointToLayer(feature, latlng){
-		var attribute = "pop_1960";
+	function pointToLayer(feature, latlng, attributes){
+		var attribute = attributes[0];
     		var options = {
         		fillColor: "#ff7800",
         		color: "#000",
@@ -109,7 +105,7 @@ body {
 	function createPropSymbols(data, map, attributes){
 		L.geoJson(data, {
         		pointToLayer: function(feature, latlng){
-            			return pointToLayer(feature, latlng);
+            			return pointToLayer(feature, latlng, attributes);
        			 }
     		}).addTo(map);
 	};
@@ -122,15 +118,64 @@ body {
         		value: 0,
         		step: 1
     		});
+		$('#panel').append('<button class="skip" id="reverse">Reverse</button>');
+    		$('#panel').append('<button class="skip" id="forward">Skip</button>');
+		$('#reverse').html('<img src="img/reverse.png">');
+    		$('#forward').html('<img src="img/forward.png">');
+		$('.skip').click(function(){
+        		var index = $('.range-slider').val();
+		        if ($(this).attr('id') == 'forward'){
+            			index++;
+            			index = index > 6 ? 0 : index;
+        			} 
+			else if ($(this).attr('id') == 'reverse'){
+            				index--;
+            				index = index < 0 ? 6 : index;
+			}
+			$('.range-slider').val(index);
+			updatePropSymbols(map, attributes[index]);
+        	});
 	};	
 	
-			
+	function updatePropSymbols(map, attribute){
+    		map.eachLayer(function(layer){
+			if (layer.feature && layer.feature.properties[attribute]){
+            			var props = layer.feature.properties;
+
+            			var radius = calcPropRadius(props[attribute]);
+            			layer.setRadius(radius);
+
+            			var popupContent = "<p><b>Cty:</b> " + props.cty + "</p>";
+
+            			var year = attribute.split("_")[1];
+            			popupContent += "<p><b>Population in " + year + ":</b> " + props[attribute] + " million</p>";
+
+            			layer.bindPopup(popupContent, {
+                			offset: new L.Point(0,-radius)}
+					);
+            		};
+        	});
+	};
+    	
+	function processData(data){
+		var attributes = [];
+		var properties = data.features[0].properties;
+		for (var attribute in properties){
+        		if (attribute.indexOf("pop") > -1){
+            			attributes.push(attribute);
+        		};
+    		};
+
+    		return attributes;
+	};	
+		
 	function getData(map){
     		$.ajax("cityData.geojson", {
         	dataType: "json",
         	success: function(response){
-            		createPropSymbols(response, map);
-			createSequenceControls(map);
+			var attributes = processData(response);
+            		createPropSymbols(response, map, attributes);
+			createSequenceControls(map, attributes);
        			}
     		});
 	};
