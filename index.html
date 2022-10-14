@@ -132,14 +132,9 @@ body {
             				index--;
             				index = index < 0 ? 6 : index;
 			}
+			$('.range-slider').val(index);
 			updatePropSymbols(map, attributes[index]);
         	});
-
-	        $('.range-slider').val(index);
-		$('.range-slider').on('input', function(){
-        		var index = $(this).val();
-			updatePropSymbols(map, attributes[index]);
-    		});
 	};	
 	
 	function updatePropSymbols(map, attribute){
