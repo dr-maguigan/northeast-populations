@@ -156,7 +156,7 @@ body {
         			$(container).append('<button class = "skip" id ="forward">Forward</button>');
 				L.DomEvent.disableClickPropagation(container);
         			return container;
-			}
+			};
 		$('.range-slider').on('input', function(){
   					var index = $(this).val();
   					updatePropSymbols(map, attributes[index])
