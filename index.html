@@ -152,7 +152,7 @@ body {
     			});
 			$('.range-slider').on('input', function(){
   			var index = $(this).val();
-  			updatePropSymbols(map, attributes[index]);
+  			updatePropSymbols(map, attributes[index])};
 			$('.range-slider').val(index);
       			updatePropSymbols(map, attributes[index]);
         		$(container).append('<button class = "skip" id ="reverse">Reverse</button>');
@@ -166,10 +166,11 @@ body {
         			index--;
         			index = index  < 0 ? 6 : index;
     			};
-        		L.DomEvent.disableClickPropagation(container)
+        		L.DomEvent.disableClickPropagation(container);
         		return container;
 		
 		map.addControl(new sequenceControl());
+			}
 	});	
 	
 	function updatePropSymbols(map, attribute){
