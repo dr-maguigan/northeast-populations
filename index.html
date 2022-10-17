@@ -72,6 +72,13 @@ body {
 		L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
     				maxZoom: 15,
    				attribution: '© OpenStreetMap'}).addTo(map);
+		
+		L.control.search({
+    			layer: layer,
+    			initial: false,
+    			propertyName: 'city' // Specify which property is searched into.
+  			})
+  		.addTo(map);
 	
 		getData(map);
 	};
