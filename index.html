@@ -73,10 +73,9 @@ body {
     				maxZoom: 15,
    				attribution: '© OpenStreetMap'}).addTo(map);
 		
-		var mapboxUrl = 'https://api.mapbox.com/styles/v1/mapbox/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}';
-		var accessToken = 'mySuperSecretToken';
-
-		var streets = L.tileLayer(mapboxUrl, {id: 'mapbox.streets', attribution: '©Mapbox', maxZoom: 15, accessToken: accessToken});
+		var mapboxUrl = 'https://api.mapbox.com/styles/v1/mapbox/{id}/tiles/{z}/{x}/{y}';
+		
+		var streets = L.tileLayer(mapboxUrl, {id: 'mapbox.streets', attribution: '©Mapbox', maxZoom: 15});
 		
 		var baseMaps = {
     			"OpenStreetMap": osm,
