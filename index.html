@@ -151,10 +151,10 @@ body {
         				step: 1
     				});
 				$('.range-slider').on('input', function(){
-  				var index = $(this).val();
-  					updatePropSymbols(map, attributes[index])};
-					$('.range-slider').val(index);
-        			$(container).append('<button class = "skip" id ="reverse">Reverse</button>');
+  					var index = $(this).val();
+  					updatePropSymbols(map, attributes[index])
+				});
+				$(container).append('<button class = "skip" id ="reverse">Reverse</button>');
         			$(container).append('<button class = "skip" id ="forward">Forward</button>');
 				$('.skip').click(function(){
     					var index = $('.range-slider').val();
@@ -165,8 +165,9 @@ body {
         					index--;
         					index = index  < 0 ? 6 : index;
     					};
+					$('.range-slider').val(index);
 					updatePropSymbols(map, attributes[index]);
-				};
+				});
 
         			L.DomEvent.disableClickPropagation(container);
         			return container;
