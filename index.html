@@ -147,20 +147,13 @@ body {
         		$(container).append('<button class = "skip" id ="forward">Skip</button>');
         		L.DomEvent.disableClickPropagation(container);
         		return container;
-    		}
-	}),
-
-		$('#panel').append('<input class="range-slider" type="range">');
-		$('.range-slider').attr({
+			$('.range-slider').attr({
         		max: 6,
        			min: 0,
         		value: 0,
         		step: 1
     		});
-		$('#panel').append('<button class="skip" id="reverse">Reverse</button>');
-    		$('#panel').append('<button class="skip" id="forward">Skip</button>');
-		$('#reverse').html('<img src="img/reverse.png">');
-    		$('#forward').html('<img src="img/forward.png">');
+		
 		$('.range-slider').on('input', function(){
   			var index = $(this).val();
   			updatePropSymbols(map, attributes[index]);
@@ -178,6 +171,9 @@ body {
    			$('.range-slider').val(index);
       			updatePropSymbols(map, attributes[index]);
 		});
+    		}
+	});
+
 		map.addControl(new sequenceControl());
 	};	
 	
