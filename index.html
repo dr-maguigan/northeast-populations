@@ -149,13 +149,17 @@ body {
         				value: 0,
         				step: 1
     				});
-				$('.range-slider').on('input', function(){
-  					var index = $(this).val();
-  					updatePropSymbols(map, attributes[index])
-				});
 				$(container).append('<button class = "skip" id ="reverse">Reverse</button>');
         			$(container).append('<button class = "skip" id ="forward">Forward</button>');
-				$('.skip').click(function(){
+				L.DomEvent.disableClickPropagation(container);
+        			return container;
+			}
+		});
+		$('.range-slider').on('input', function(){
+  					var index = $(this).val();
+  					updatePropSymbols(map, attributes[index])
+		});
+		$('.skip').click(function(){
     					var index = $('.range-slider').val();
     					if($(this).attr('id') == 'forward'){
         					index++;
@@ -167,11 +171,6 @@ body {
 					$('.range-slider').val(index);
 					updatePropSymbols(map, attributes[index]);
 				});
-        			L.DomEvent.disableClickPropagation(container);
-        			return container;
-			}
-		});
-		
 		map.addControl(new sequenceControl());
 				
 	};
