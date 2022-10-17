@@ -104,6 +104,8 @@ body {
         		fillOpacity: 0.8
     		};
 		
+		console.log(attributes)
+		
 		var attValue = Number(feature.properties[attribute]);
 		options.radius = calcPropRadius(attValue);
 		var layer = L.circleMarker(latlng, options);
@@ -202,8 +204,7 @@ body {
         		};
     		};
 
-    		console.log(attributes)
-		return attributes;
+    		return attributes;
 	};	
 		
 	function getData(map){
