@@ -82,11 +82,7 @@ body {
     			"Mapbox Streets": streets
 		};
 
-		var overlayMaps = {
-    			"Cities": layer
-		};
-		
-		var layerControl = L.control.layers(baseMaps, overlayMaps).addTo(map);
+		var layerControl = L.control.layers(baseMaps).addTo(map);
 		
 		getData(map);
 		
@@ -138,8 +134,23 @@ body {
     		}).addTo(map);
 	};
 	
-	function createSequenceControls(map){
-    		$('#panel').append('<input class="range-slider" type="range">');
+	function createSequenceControls(map, attributes){
+
+		var sequenceControl = L.Control.extend({
+    			options: {
+        			position: 'bottomleft'
+    		},
+    		onAdd: function(map) {
+        		var container = L.DomUtil.create('div', 'sequence-control-container');
+        		$(container).append('<input class = "range-slider" type = "range">');
+        		$(container).append('<button class = "skip" id ="reverse">Reverse</button>');
+        		$(container).append('<button class = "skip" id ="forward">Skip</button>');
+        		L.DomEvent.disableClickPropagation(container);
+        		return container;
+    		}
+	});
+
+		$('#panel').append('<input class="range-slider" type="range">');
 		$('.range-slider').attr({
         		max: 6,
        			min: 0,
@@ -167,6 +178,7 @@ body {
    			$('.range-slider').val(index);
       			updatePropSymbols(map, attributes[index]);
 		});
+		map.addControl(new sequenceControl());
 	};	
 	
 	function updatePropSymbols(map, attribute){
