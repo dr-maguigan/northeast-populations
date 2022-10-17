@@ -73,11 +73,11 @@ body {
     				maxZoom: 15,
    				attribution: '© OpenStreetMap'}).addTo(map);
 		
-		var sat = L.mapbox.tileLayer('mapbox.mapbox-streets-v8');
+		var streets = L.mapbox.tileLayer('mapbox.mapbox-streets-v8');
 		
 		var baseMaps = {
     			"OpenStreetMap": osm,
-    			"Mapbox Satellite": sat
+    			"Mapbox Streets": streets
 		};
 
 		var layerControl = L.control.layers(baseMaps).addTo(map);
