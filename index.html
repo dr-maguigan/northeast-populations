@@ -73,9 +73,10 @@ body {
     				maxZoom: 15,
    				attribution: '© OpenStreetMap'}).addTo(map);
 		
-		var streets = L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png', {
-				maxZoom:15,
-				attribution: '©Mapbox'});
+		var mapboxUrl = 'https://api.mapbox.com/styles/v1/mapbox/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}';
+		var accessToken = 'mySuperSecretToken';
+
+		var streets = L.tileLayer(mapboxUrl, {id: 'mapbox.streets', attribution: '©Mapbox', maxZoom: 15, accessToken: accessToken});
 		
 		var baseMaps = {
     			"OpenStreetMap": osm,
