@@ -151,7 +151,7 @@ body {
         		step: 1
     			});
 			$('.range-slider').on('input', function(){
-  			var index = $(this).val();
+  				var index = $(this).val();
   			updatePropSymbols(map, attributes[index])};
 			$('.range-slider').val(index);
       			updatePropSymbols(map, attributes[index]);
@@ -170,8 +170,10 @@ body {
         		return container;
 		
 		map.addControl(new sequenceControl());
-			}
-	});	
+				
+			};
+		});	
+	};
 	
 	function updatePropSymbols(map, attribute){
     		map.eachLayer(function(layer){
