@@ -150,19 +150,23 @@ body {
     		$('#panel').append('<button class="skip" id="forward">Skip</button>');
 		$('#reverse').html('<img src="img/reverse.png">');
     		$('#forward').html('<img src="img/forward.png">');
+		$('.range-slider').on('input', function(){
+  			var index = $(this).val();
+  			updatePropSymbols(map, attributes[index]);
+		});
+
 		$('.skip').click(function(){
-        		var index = $('.range-slider').val();
-		        if ($(this).attr('id') == 'forward'){
-            			index++;
-            			index = index > 6 ? 0 : index;
-        			} 
-			else if ($(this).attr('id') == 'reverse'){
-            				index--;
-            				index = index < 0 ? 6 : index;
-			}
-			$('.range-slider').val(index);
-			updatePropSymbols(map, attributes[index]);
-        	});
+    			var index = $('.range-slider').val();
+    			if($(this).attr('id') == 'forward'){
+        			index++;
+        			index = index > 6 ? 0 : index;
+    			} else if ($(this).attr('id') == 'reverse'){
+        			index--;
+        			index = index  < 0 ? 6 : index;
+    			};
+   			$('.range-slider').val(index);
+      			updatePropSymbols(map, attributes[index]);
+		});
 	};	
 	
 	function updatePropSymbols(map, attribute){
