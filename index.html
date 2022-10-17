@@ -73,7 +73,7 @@ body {
     				maxZoom: 15,
    				attribution: '© OpenStreetMap'}).addTo(map);
 		
-		var streets = L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}.png', {
+		var streets = L.tileLayer('https://api.mapbox.com/v4/mapbox.satellite.json', {
 				maxZoom:15,
 				attribution: '©Mapbox'});
 		
