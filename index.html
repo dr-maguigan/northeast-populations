@@ -168,10 +168,9 @@ body {
 					$('.range-slider').val(index);
 					updatePropSymbols(map, attributes[index]);
 				});
-
         			L.DomEvent.disableClickPropagation(container);
         			return container;
-				
+			}
 		});
 		
 		map.addControl(new sequenceControl());
