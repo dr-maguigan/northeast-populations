@@ -146,8 +146,8 @@ body {
         		$(container).append('<input class = "range-slider" type = "range">');
         		$(container).append('<button class = "skip" id ="reverse">Reverse</button>');
         		$(container).append('<button class = "skip" id ="forward">Forward</button>');
-        		L.DomEvent.disableClickPropagation(container);
-        		return container;};
+        		L.DomEvent.disableClickPropagation(container)};
+        		return container;
 		$('.range-slider').attr({
         		max: 6,
        			min: 0,
