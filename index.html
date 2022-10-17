@@ -139,7 +139,7 @@ body {
 		var sequenceControl = L.Control.extend({
     			options: {
         			position: 'bottomleft'
-    		},
+    			},
     		onAdd: function(map) {
         		var container = L.DomUtil.create('div', 'sequence-control-container');
         		$(container).append('<input class = "range-slider" type = "range">');
@@ -148,7 +148,7 @@ body {
         		L.DomEvent.disableClickPropagation(container);
         		return container;
     		}
-	});
+	}),
 
 		$('#panel').append('<input class="range-slider" type="range">');
 		$('.range-slider').attr({
