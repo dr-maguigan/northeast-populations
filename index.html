@@ -73,14 +73,14 @@ body {
     				maxZoom: 15,
    				attribution: '© OpenStreetMap'}).addTo(map);
 		
+		getData(map);
+		
 		L.control.search({
-    			layer: layer,
+    			layer: pointToLayer,
     			initial: false,
     			propertyName: 'city' // Specify which property is searched into.
   			})
   		.addTo(map);
-	
-		getData(map);
 	};
 
 	function calcPropRadius(attValue) {
