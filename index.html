@@ -87,8 +87,6 @@ body {
         		fillOpacity: 0.8
     		};
 		
-		console.log(attribute)
-		
 		var attValue = Number(feature.properties[attribute]);
 		options.radius = calcPropRadius(attValue);
 		var layer = L.circleMarker(latlng, options);
