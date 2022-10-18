@@ -117,7 +117,7 @@ body {
 	
 	function createSequenceControls(map, attributes) {
 
-		var sliderControl = L.control({ position: ‘bottomleft’} );
+		var sliderControl = L.control.extend({ position: ‘bottomleft’});
 
  		sliderControl.onAdd = function(map) {
 
