@@ -138,7 +138,8 @@ body {
 			$('.range-slider').on('input', function(){
   					var index = $(this).val();
   					updatePropSymbols(map, attributes[index]);
-			map.addControl(new sequenceControl());
+		});
+		map.addControl(new sequenceControl());
 				
 	};
 	
