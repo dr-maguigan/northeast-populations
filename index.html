@@ -120,7 +120,8 @@ body {
 		var sliderControl = L.Control.extend({
     			options: {
         			position: 'bottomleft'
-    			});
+    			}
+		});
  		sliderControl.onAdd = function(map) {
 
  			var slider = L.DomUtil.create(“input”, “range-slider”);
