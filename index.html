@@ -134,8 +134,8 @@ body {
  				.attr({'type':'range',
  					max: attributes[6],
  					min: attributes[0],
- 					step: 1,
- 					value: String(attributes[0])})
+ 					step: 1
+ 					})
  				.on('input change', function() {
  				updatePropSymbols($(this).val().toString());
  
