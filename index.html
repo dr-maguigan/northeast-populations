@@ -142,7 +142,7 @@ body {
  			});
  			return slider;
  		}
-		
+		map.addControl(new sliderControl());
  	}
 	
 	function updatePropSymbols(map, attribute){
@@ -183,8 +183,7 @@ body {
         	success: function(response){
 			var attributes = processData(response);
             		createPropSymbols(response, map, attributes);
-			createSequenceControls(map, attributes);
-       			}
+			}
     		});
 	};
 
