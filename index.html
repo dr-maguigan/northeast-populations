@@ -122,12 +122,12 @@ body {
         			position: 'bottomleft'
     			},
     			onAdd: function(map) {
-        			var container = L.DomUtil.create('div', 'sequence-control-container');
+        			var container = L.DomUtil.create('div', 'range-slider');
         			$(container).append('<input class = "range-slider" type = "range">');
 				L.DomEvent.addListener(slider, 'mousedown', function(e) {
  					L.DomEvent.stopPropagation(e);
  				});
-			},
+			};
  			$('.range-slider').attr({
         				max: 6,
        					min: 0,
