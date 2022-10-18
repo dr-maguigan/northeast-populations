@@ -121,7 +121,7 @@ body {
     			options: {
         			position: 'bottomleft'
     			}
-		}).addTo(map);
+		});
  		sliderControl.onAdd = function(map) {
 
  			var slider = L.DomUtil.create('div', 'sequence-control-container');
@@ -142,7 +142,7 @@ body {
  			});
  			return slider;
  		}
-
+		map.addControl(new sliderControl());
  	}
 	
 	function updatePropSymbols(map, attribute){
