@@ -124,21 +124,34 @@ body {
     			onAdd: function(map) {
         			var container = L.DomUtil.create('div', 'sequence-control-container');
         			$(container).append('<input class = "range-slider" type = "range">');
-				L.DomEvent.addListener(container, 'mousedown', function(e) {
- 					L.DomEvent.stopPropagation(e);
- 				});
-			};
- 			$('.range-slider').attr({
+				$(container).append('<button class = "skip" id ="reverse">Reverse</button>');
+        			$(container).append('<button class = "skip" id ="forward">Forward</button>');
+				$('.range-slider').attr({
         				max: 6,
        					min: 0,
         				value: 0,
         				step: 1
-    			});
+    				});
 		
-			$('.range-slider').on('input', function(){
+				$('.range-slider').on('input', function(){
   					var index = $(this).val();
-  					updatePropSymbols(map, attributes[index]);
-			});
+  					updatePropSymbols(map, attributes[index])
+				});
+				$('.skip').click(function(){
+    					var index = $('.range-slider').val();
+    					if($(this).attr('id') == 'forward'){
+        					index++;
+        					index = index > 6 ? 0 : index;
+    					} else if ($(this).attr('id') == 'reverse'){
+        					index--;
+        					index = index  < 0 ? 6 : index;
+    					};
+					$('.range-slider').val(index);
+					updatePropSymbols(map, attributes[index]);
+				});
+				L.DomEvent.disableClickPropagation(container);
+        			return container;
+			}
 		});
 		map.addControl(new sequenceControl());
 				
