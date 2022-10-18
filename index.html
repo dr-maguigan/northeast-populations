@@ -115,35 +115,32 @@ body {
     		}).addTo(map);
 	};
 	
-	function createSequenceControls(map, attributes) {
+	function createSequenceControls(map, attributes){
 
-		var sliderControl = L.Control.extend({
+		var sequenceControl = L.Control.extend({
     			options: {
         			position: 'bottomleft'
-    			}
-		});
- 		sliderControl.onAdd = function(map) {
+    			},
+    			onAdd: function(map) {
+        			var container = L.DomUtil.create('div', 'sequence-control-container');
+        			$(container).append('<input class = "range-slider" type = "range">');
+				L.DomEvent.addListener(slider, 'mousedown', function(e) {
+ 					L.DomEvent.stopPropagation(e);
+ 				});
 
- 			var slider = L.DomUtil.create('div', 'sequence-control-container');
-
- 			L.DomEvent.addListener(slider, 'mousedown', function(e) {
- 			L.DomEvent.stopPropagation(e);
- 			});
-
- 			$(slider)
- 				.attr({'type':'range',
- 					max: attributes[6],
- 					min: attributes[0],
- 					step: 1
- 					})
- 				.on('input change', function() {
- 				updatePropSymbols($(this).val().toString());
- 
- 			});
- 			return slider;
- 		}
-		map.addControl(new sliderControl());
- 	}
+ 			$('.range-slider').attr({
+        				max: 6,
+       					min: 0,
+        				value: 0,
+        				step: 1
+    				});
+		
+			$('.range-slider').on('input', function(){
+  					var index = $(this).val();
+  					updatePropSymbols(map, attributes[index]);
+			map.addControl(new sequenceControl());
+				
+	};
 	
 	function updatePropSymbols(map, attribute){
     		map.eachLayer(function(layer){
