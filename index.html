@@ -115,47 +115,33 @@ body {
     		}).addTo(map);
 	};
 	
-	function createSequenceControls(map, attributes){
+	function createSequenceControls(map, attributes) {
 
-		var sequenceControl = L.Control.extend({
-    			options: {
-        			position: 'bottomleft'
-    			},
-    			onAdd: function(map) {
-        			var container = L.DomUtil.create('div', 'sequence-control-container');
-        			$(container).append('<input class = "range-slider" type = "range">');
-				$(container).append('<button class = "skip" id ="reverse">Reverse</button>');
-        			$(container).append('<button class = "skip" id ="forward">Forward</button>');
-				L.DomEvent.disableClickPropagation(container);
-        			return container;
-			}
-		});
-		$('.range-slider').attr({
-        				max: 6,
-       					min: 0,
-        				value: 0,
-        				step: 1
-    				});
-		
-		$('.range-slider').on('input', function(){
-  					var index = $(this).val();
-  					updatePropSymbols(map, attributes[index])
-		});
-		$('.skip').click(function(){
-    					var index = $('.range-slider').val();
-    					if($(this).attr('id') == 'forward'){
-        					index++;
-        					index = index > 6 ? 0 : index;
-    					} else if ($(this).attr('id') == 'reverse'){
-        					index--;
-        					index = index  < 0 ? 6 : index;
-    					};
-					$('.range-slider').val(index);
-					updatePropSymbols(map, attributes[index]);
-		});
-		map.addControl(new sequenceControl());
-				
-	};
+		var sliderControl = L.control({ position: ‘bottomleft’} );
+
+ 		sliderControl.onAdd = function(map) {
+
+ 			var slider = L.DomUtil.create(“input”, “range-slider”);
+
+ 			L.DomEvent.addListener(slider, ‘mousedown’, function(e) {
+ 			L.DomEvent.stopPropagation(e);
+ 			});
+
+ 			$(slider)
+ 				.attr({'type':'range',
+ 					max: attributes[6],
+ 					min: attributes[0],
+ 					step: 1,
+ 					value: String(attributes[0])})
+ 				.on(‘input change’, function() {
+ 				updatePropSymbols($(this).val().toString());
+ 
+ 			});
+ 			return slider;
+ 		}
+
+ 			sliderControl.addTo(map)
+ 	}
 	
 	function updatePropSymbols(map, attribute){
     		map.eachLayer(function(layer){
