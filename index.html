@@ -124,9 +124,9 @@ body {
 		});
  		sliderControl.onAdd = function(map) {
 
- 			var slider = L.DomUtil.create(“input”, “range-slider”);
+ 			var slider = L.DomUtil.create('div', 'sequence-control-container');
 
- 			L.DomEvent.addListener(slider, ‘mousedown’, function(e) {
+ 			L.DomEvent.addListener(slider, 'mousedown', function(e) {
  			L.DomEvent.stopPropagation(e);
  			});
 
@@ -136,7 +136,7 @@ body {
  					min: attributes[0],
  					step: 1,
  					value: String(attributes[0])})
- 				.on(‘input change’, function() {
+ 				.on('input change', function() {
  				updatePropSymbols($(this).val().toString());
  
  			});
