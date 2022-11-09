@@ -35,7 +35,13 @@ body {
 	.leaflet-popup-content p {
     margin: 0.2em 0;
 }
-	
+	.temporal-legend {
+ padding: 6px 10px;
+ font: 14px/16px Arial, Helvetica, sans-serif;
+ background: white;
+ background: rgba(255,255,255,0.8);
+ box-shadow: 0 0 15px rgba(0,0,0,0.2);
+ border-radius: 5px;
 </style>
 </head>
  <body>
@@ -139,13 +145,13 @@ body {
        					min: 0,
         				value: 0,
         				step: 1,
-					value: String(index[0])})
+					value: String(index[0])
     				});
 		
 				$('.range-slider').on('input', function(){
   					var index = $(this).val();
   					updatePropSymbols(map, attributes[index])
-						$(“.temporal-legend”).text(this.value);
+						$(.temporal-legend).text(this.value);
 				});
 				$('.skip').click(function(){
     					var index = $('.range-slider').val();
