@@ -170,11 +170,11 @@ body {
 		
 	function createTemporalLegend(startTimestamp) {
 
- 		var temporalLegend = L.control({ position: ‘bottomleft’ });
+ 		var temporalLegend = L.control({ position: 'bottomleft' });
 
  		temporalLegend.onAdd = function(map) {
- 			var output = L.DomUtil.create(“output”, “temporal-legend”);
- 			$(output).text(startTimestamp)
+ 			var output = L.DomUtil.create(output, temporal-legend);
+ 			$(output).text(index[0])
  			return output;
  		}
 
